@@ -27,6 +27,7 @@ model Courses {
   title String
   imageUrl String?
   price Int?
+  isPublished Boolean @default(false)
   isFree Boolean? @default(false)
   description String?
   chapterId String? @db.ObjectId

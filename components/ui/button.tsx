@@ -20,7 +20,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         lmsbtn: "bg-indigo-500 text-white shadow-md hover:bg-indigo-500/90",
         lmsbtnSecondary : "text-indigo-500 rounded-md border border-indigo-500 bg-white shadow-md hover:bg-white/90",
-        lmsSmall : "border rounded-md text-sm px-3 py-1 bg-white border-indigo-500 text-indigo-500 hover:bg-white/90"
+        lmsSmall : "border rounded-md text-sm px-3 py-1 bg-white border-indigo-500 text-indigo-500 hover:bg-white/90",
+        purchase : "border rounded-md text-sm px-3 py-1 bg-indigo-600 border-indigo-500 text-white hover:bg-indigo-600/90 rounded-full"
 
       },
       size: {
