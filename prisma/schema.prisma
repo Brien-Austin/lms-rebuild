@@ -26,24 +26,28 @@ model Courses {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   imageUrl String?
-  price String?
+  price Int?
   isFree Boolean? @default(false)
   description String?
   chapterId String? @db.ObjectId
-  chapter Chapters? @relation(fields: [chapterId], references: [id])
+
   users Users[]
+  chapter Chapters[]
+
 
 
 }
 
 model Chapters {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  index Int
+  index Int?
   isPublished Boolean @default(false)
   imageUrl String?
   title String
   
-  youtubeUrl String
+  youtubeUrl String?
   description String?
-  courses Courses[]
+  courseId String @db.ObjectId
+  chapter Courses @relation(fields: [courseId],references: [id])
+ 
 }

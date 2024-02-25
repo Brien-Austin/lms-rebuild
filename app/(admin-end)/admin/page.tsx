@@ -61,7 +61,7 @@ const Admin = async() => {
         </div>
      
         <CourseTitle/>
-        <SimpleDragAndDrop items={items}/>
+    
        
         </>
     ) : 

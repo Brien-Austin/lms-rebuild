@@ -4,14 +4,21 @@ import { Eye, Pencil, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import toast from 'react-hot-toast'
+import EditCourse from './edit-course'
 
 interface CourseActionsProps {
-    id : string 
-}
+    id: string;
+    title: string | null | undefined;
+    imageUrl: string | null | undefined;
+    price: number | null | undefined;
+    isFree: boolean | null | undefined;
+    description: string | null | undefined;
+ 
+  }
 
 
 
-const CourseActions:React.FC<CourseActionsProps> = ({id}) => {
+const CourseActions:React.FC<CourseActionsProps> = ({id,title,imageUrl,price,isFree,description}) => {
     const router = useRouter()
 
     const handleDelete = async()=>{
@@ -35,9 +42,15 @@ const CourseActions:React.FC<CourseActionsProps> = ({id}) => {
         <div className="h-7 w-7 bg-white shadow-md border border-slate-50 rounded-full flex justify-center items-center ">
              <Eye size={12} className='text-green-500'/>
          </div>
-        <div className="h-7 w-7 bg-white shadow-md border border-slate-50 rounded-full flex justify-center items-center ">
-             <Pencil size={12} className='text-slate-600'/>
-         </div>
+       <EditCourse 
+       id={id}
+       title = {title}
+       price = {price}
+       imageUrl = {imageUrl}
+       isFree = {isFree}
+       description = {description}
+       
+       />
          <div onClick={handleDelete} className="h-7 w-7 bg-white shadow-md border border-slate-50 rounded-full flex justify-center items-center ">
              <Trash size={12} className='text-red-500'/>
          </div>

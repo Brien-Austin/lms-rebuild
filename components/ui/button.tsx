@@ -19,6 +19,8 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         lmsbtn: "bg-indigo-500 text-white shadow-md hover:bg-indigo-500/90",
+        lmsbtnSecondary : "text-indigo-500 rounded-md border border-indigo-500 bg-white shadow-md hover:bg-white/90",
+        lmsSmall : "border rounded-md text-sm px-3 py-1 bg-white border-indigo-500 text-indigo-500 hover:bg-white/90"
 
       },
       size: {
