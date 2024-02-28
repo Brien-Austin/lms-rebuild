@@ -19,7 +19,20 @@ model Users {
   imageUrl String?
   isAdmin Boolean @default(false)
   courseId String? @db.ObjectId
+  purchasedCourses String[]
   courses Courses? @relation(fields: [courseId],references: [id])
+}
+
+model RequestAcess{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    emailAddress String
+    userId String
+    firstName String
+    courseId String
+    isRequesting Boolean @default(true)
+    isGivenAccess Boolean @default(false)
+
+
 }
 
 model Courses {
@@ -39,6 +52,7 @@ model Courses {
 
 }
 
+
 model Chapters {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   index Int?
@@ -50,5 +64,17 @@ model Chapters {
   description String?
   courseId String @db.ObjectId
   chapter Courses @relation(fields: [courseId],references: [id])
+  userProgress UserProgress[]
  
+}
+
+model UserProgress {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    userId String
+    courseId String
+    isCompleted Boolean @default(false)
+    chapterId String @db.ObjectId
+    chapter Chapters @relation(fields: [chapterId],references: [id])
+    createdAt  DateTime
+
 }

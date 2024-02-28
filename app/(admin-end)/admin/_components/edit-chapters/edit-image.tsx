@@ -93,7 +93,7 @@ export const EditImage = ({
       {isEditing && (
         <div>
           <FileUpload 
-            endpoint="courseImage"
+            endpoint="courseAttachment"
             onChange={(url) => {
               if (url) {
                 onSubmit({ imageUrl: url });

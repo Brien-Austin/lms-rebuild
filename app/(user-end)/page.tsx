@@ -53,7 +53,9 @@ const Home = async () => {
   console.log(courses)
 
   return(
+    
     <div className='mb-20'>
+      
     {
       courses.map((course,index)=>(
         <div key={course.id} className='mt-5 '>
@@ -78,3 +80,6 @@ const Home = async () => {
 }
 
 export default Home
+
+
+

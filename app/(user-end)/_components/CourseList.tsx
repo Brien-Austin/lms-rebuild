@@ -1,7 +1,12 @@
+"use client"
+import { setCurrentChapterUrl } from '@/app/store/features/currentYoutubeUrl'
+import { useAppSelector } from '@/app/store/store'
 import { Button } from '@/components/ui/button'
 import { Clock } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
+import {useDispatch} from 'react-redux'
 
 interface CourseListProps {
   id: string,
@@ -24,9 +29,17 @@ interface Chapter {
   description: string | null
 }
 
-const CourseList = ({ chapters, description,imageUrl ,price,title}: CourseListProps) => {
+const CourseList = ({id:courseId, chapters,isFree, description,imageUrl ,price,title}: CourseListProps) => {
+  const {chapterYoutubeUrl} = useAppSelector((state)=>state.ChapterYTUrl)
+  const dispatch = useDispatch();
+const handleCourseView = () =>{
+  if(chapters[0].youtubeUrl !== null){
+    dispatch(setCurrentChapterUrl(chapters[0].youtubeUrl))
+  }
+
+}
   return (
-    <div className='flex flex-col h-72 rounded-lg shadow-sm p-2 border'>
+    <Link onClick={handleCourseView} href={`/course/${courseId}`} className='flex flex-col h-72 rounded-lg cursor-pointer shadow-sm p-2 border'>
       {
         imageUrl !== null && (
           <div className='relative h-36 w-full'>
@@ -50,12 +63,25 @@ const CourseList = ({ chapters, description,imageUrl ,price,title}: CourseListPr
      </div>
 
   <div className="flex justify-between items-center">
-    <h1 className='font-semibold text-md text-black'> &#8377;{price}</h1>
-    <Button variant={'purchase'}>
+   
+    {
+        isFree ? (
+            <> <h1 className='font-semibold text-md text-black'>FREE !</h1>
+              <Button variant={'purchase'}>
+                Request Access
+   </Button>
+   </>
+        ) : (
+            <>
+             <h1 className='font-semibold text-md text-black'> &#8377;{price}</h1>
+            <Button variant={'purchase'}>
     Buy course
    </Button>
+            </>
+        )
+    }
   </div>
-    </div>
+    </Link>
   )
 }
 

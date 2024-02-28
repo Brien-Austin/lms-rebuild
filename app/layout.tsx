@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import {ClerkProvider} from '@clerk/nextjs'
 import "./globals.css";
 import { ToastProvider } from "@/components/providers/react-toast";
+import { ReduxProvider } from "./store/provider";
 
 
 
@@ -24,9 +25,12 @@ export default function RootLayout({
     <ClerkProvider> 
     <html lang="en">
       <body className={poppins.className} >
+        <ReduxProvider>
       
       <ToastProvider/>
-      {children}</body>
+      
+      {children}
+      </ReduxProvider></body>
     </html>
     </ClerkProvider>
   );

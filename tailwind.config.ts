@@ -18,6 +18,8 @@ const config = {
       },
     },
     extend: {
+
+      
       screens:{
         sm:'320px'
 
