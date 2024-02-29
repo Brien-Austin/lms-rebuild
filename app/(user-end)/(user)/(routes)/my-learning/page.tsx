@@ -15,11 +15,27 @@ import {
 } from "@/components/ui/dialog"
 import { redirect } from 'next/navigation';
 import SignOutUser from './_components/SignOutUser';
+import { db } from '@/lib/db';
+import OwnedCoursesList from './_components/ownedCourses';
 
 
 const MyLearning = async () => {
   const {userId} = auth();
- 
+  const userID : string = userId !==null ? userId : '';
+
+  const ownedCourses = await db.requestAcess.findMany({
+    where : {
+      userId : userID,
+      courseAccess : {
+        isGivenAccess : true
+      }
+      
+    },
+    select : {
+      courseAccess : true
+    }
+  })
+ console.log(ownedCourses)
   if(!userId ){
     return redirect('/')
 
@@ -41,7 +57,7 @@ const MyLearning = async () => {
    <h1 className="whitespace-nowrap text-[18px]">
    {firstName}
    </h1>
-   <h1 className='text-[14px] text-muted-foreground'>{0} courses enrolled</h1>
+   <h1 className='text-[14px] text-muted-foreground'>{ownedCourses.length } course enrolled</h1>
    </div>
    
 
@@ -62,15 +78,40 @@ const MyLearning = async () => {
    
    </div>
   
-   <div className="flex justify-center items-center flex-col gap-10 ">
+ {
+  ownedCourses.length > 0 ? (
+    <>
+   {
+    ownedCourses.map((course)=>(
+      <div key={course.courseAccess?.id}>
+       {typeof course.courseAccess?.courseId === 'string'  &&
+       (
+        <OwnedCoursesList id={course.courseAccess?.courseId} />
+       )
+
+       }
+
+
+      </div>
+    ))
+   }
+
+    </>
+  ) : 
+  (
+    <>
+      <div className="flex justify-center items-center flex-col gap-10 ">
   
-    <Image  className="object-cover h-80 w-full drop-shadow-xl"unoptimized={true}src={'/study.png'} height={100} width={100} alt='study'/>
-    <Link href={'/categories'}>
-    <Button className='m- rounded-full'>
-      Explore courses
-    </Button>
-    </Link>
-   </div>
+  <Image  className="object-cover h-80 w-full drop-shadow-xl"unoptimized={true}src={'/study.png'} height={100} width={100} alt='study'/>
+  <Link href={'/categories'}>
+  <Button className='m- rounded-full'>
+    Explore courses
+  </Button>
+  </Link>
+ </div>
+    </>
+  )
+ }
      
     </div>
   )

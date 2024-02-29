@@ -37,7 +37,8 @@ const CoursePageLayout = async(
         <div className="flex gap-2 flex-col">
             {
                 courses?.chapter.map((chapter)=>(
-                    <><ChaptersView key={chapter.id} firstChapterVideo={courses.chapter[0].youtubeUrl}  id={chapter.id} index={chapter.index} title={chapter.title} imageUrl={chapter.imageUrl} youtubeUrl={chapter.youtubeUrl} description={chapter.description} />
+                    <>
+                    <ChaptersView chapters={courses.chapter}/>
                     
                     </>
                     
@@ -53,8 +54,20 @@ const CoursePageLayout = async(
                 </div>
               <div className="flex flex-col gap-3 mt-24 mb-24">
               {
-                    courses?.chapter.map((chapter)=>(
-                        <ChapterList title={chapter.title} id={chapter.id} imageUrl={chapter.imageUrl} index={chapter.index} description={chapter.description} youtubeUrl={chapter.youtubeUrl} key={chapter.id} courseName={courses.title} courseDescription={courses.description} />
+                     courses?.chapter.map((chapter, index) => (
+                        <ChapterList
+                        courseId = {courses.id}
+                            currentIndex={index} 
+                            title={chapter.title}
+                            id={chapter.id}
+                            imageUrl={chapter.imageUrl}
+                            index={chapter.index}
+                            description={chapter.description}
+                            youtubeUrl={chapter.youtubeUrl}
+                            key={chapter.id}
+                            courseName={courses.title}
+                            courseDescription={courses.description}
+                        />
                     ))
                 }
               </div>

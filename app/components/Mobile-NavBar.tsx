@@ -22,7 +22,7 @@ const navRoutes = [
 ]
 const BottomNavBar = () => {
   return (
-   <div className="bottom-0 left-0 px-5 py-2 fixed w-full h-16 border-t border-slate-200 bg-white">
+   <div className="bottom-0 left-0 px-5 py-2 fixed w-full h-16 border-t border-slate-200 bg-white z-10">
     <div className="w-4/5  bg-gradient from-[#FF5F5F] to-[#FF9080]"></div>
    <div className="  w-full h-full flex justify-evenly items-center bg-white  ">
   {

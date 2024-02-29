@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 import { useStore } from 'zustand'
 import {useDispatch} from 'react-redux'
-import { setCurrentChapterUrl } from '@/app/store/features/currentYoutubeUrl'
+import { setCurrentChapterUrl, setCurrentIndex } from '@/app/store/features/currentYoutubeUrl'
 
 interface ChapterListProps {
     id : string
@@ -18,19 +18,25 @@ interface ChapterListProps {
     youtubeUrl : string| null
     courseName : string | null
     courseDescription : string | null
+    currentIndex: number | null
+    courseId : string | null
 
 
 }
-const ChapterList:React.FC<ChapterListProps> = ({index,title,description,youtubeUrl,courseName,courseDescription,imageUrl}) => {
+const ChapterList:React.FC<ChapterListProps> = ({index,title,description,youtubeUrl,courseId,courseName,courseDescription,imageUrl,currentIndex}) => {
    const {chapterYoutubeUrl} = useAppSelector((state)=>state.ChapterYTUrl)
    const dispatch = useDispatch();
    const handleChapter = () =>{
-    if(youtubeUrl !== null){
+    if(youtubeUrl !== null ){
         dispatch(setCurrentChapterUrl(youtubeUrl))
+       
+          dispatch(setCurrentIndex(currentIndex ?? 0))
+        
     }
    }
    console.log('state yt url: ' + chapterYoutubeUrl)
    console.log(youtubeUrl)
+   console.log(currentIndex)
     return (
 
    <div onClick={handleChapter} className={cn("cursor-pointer border w-full text-black text-white p-5 shadow-md rounded-lg",chapterYoutubeUrl === youtubeUrl && "bg-gradient-to-r from-indigo-500 to-indigo-600 text-white")}>

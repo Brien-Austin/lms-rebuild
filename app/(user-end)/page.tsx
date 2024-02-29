@@ -4,8 +4,10 @@ import React from 'react'
 import CourseList from './_components/CourseList'
 
 const Home = async () => {
+  const {userId} = auth()
   const user = await currentUser()
   const email = user?.emailAddresses[0]?.emailAddress
+  const username = user?.firstName;
   const imageUrl = user?.imageUrl
 
   console.log(email)
@@ -50,6 +52,8 @@ const Home = async () => {
     }
   })
 
+
+
   console.log(courses)
 
   return(
@@ -60,8 +64,12 @@ const Home = async () => {
       courses.map((course,index)=>(
         <div key={course.id} className='mt-5 '>
        <CourseList 
+       userId={userId}
+
 
        key={course.id}
+       firstName={username}
+       email={email}
        id={course.id}
        title={course.title}
        imageUrl={course.imageUrl}

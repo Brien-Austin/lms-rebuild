@@ -23,14 +23,24 @@ model Users {
   courses Courses? @relation(fields: [courseId],references: [id])
 }
 
+model CourseAccess  {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  courseId String 
+  isRequesting Boolean @default(true)
+  isGivenAccess Boolean @default(false)
+  requests RequestAcess[]
+  
+
+}
+
 model RequestAcess{
     id String @id @default(auto()) @map("_id") @db.ObjectId
     emailAddress String
-    userId String
+    userId String @unique
     firstName String
-    courseId String
-    isRequesting Boolean @default(true)
-    isGivenAccess Boolean @default(false)
+    courseAccessId String? @db.ObjectId
+    courseAccess CourseAccess? @relation(fields: [courseAccessId],references: [id])
+  
 
 
 }
@@ -77,4 +87,11 @@ model UserProgress {
     chapter Chapters @relation(fields: [chapterId],references: [id])
     createdAt  DateTime
 
+}
+
+model CoursePurchase {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String 
+  courseId String
+  userProgress Int
 }
