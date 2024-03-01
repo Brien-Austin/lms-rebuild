@@ -51,5 +51,5 @@ const chapterUrlSlice = createSlice({
 
 
 export const {setCurrentChapterUrl,setNextChapter,setTotalChapter,setCurrentIndex,setPreviousChapter} = chapterUrlSlice.actions;
-export const counterValue = (state:{counter : ChapterUrlState})=>state.counter.chapterYoutubeUrl;
+
 export default chapterUrlSlice.reducer;

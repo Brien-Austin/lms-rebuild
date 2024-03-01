@@ -2,8 +2,9 @@
 
 import { db } from "@/lib/db"
 
-export const userHaveAccess = async(courseId : string , userId : string) =>{
+export const userHaveAccess = async(courseId : string , userId : string | null | undefined) =>{
 
+   if(typeof userId === "string"){
     const hasAccess = await db.requestAcess.findUnique({
         where: {
             userId :userId,
@@ -22,6 +23,7 @@ export const userHaveAccess = async(courseId : string , userId : string) =>{
     })
 
     return hasAccess?.courseAccess?.isGivenAccess;
+   }
 
 
    

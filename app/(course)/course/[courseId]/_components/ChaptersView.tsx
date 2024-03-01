@@ -1,6 +1,6 @@
 "use client"
 import { useAppSelector } from "@/app/store/store";
-import currentYoutubeUrl, { setCurrentChapterUrl, setTotalChapter } from "@/app/store/features/currentYoutubeUrl";
+import currentYoutubeUrl, { setCurrentChapterUrl, setTotalChapter } from "@/app/store/features/current-yt-url";
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import YouTubePlayer from "react-player/youtube";

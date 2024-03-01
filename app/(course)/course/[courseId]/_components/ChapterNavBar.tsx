@@ -1,5 +1,5 @@
 "use client"
-import { setNextChapter, setPreviousChapter } from '@/app/store/features/currentYoutubeUrl'
+import { setNextChapter, setPreviousChapter } from '@/app/store/features/current-yt-url'
 import { useAppSelector } from '@/app/store/store'
 import React from 'react'
 import {useDispatch} from 'react-redux'

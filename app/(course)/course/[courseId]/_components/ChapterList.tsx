@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 import { useStore } from 'zustand'
 import {useDispatch} from 'react-redux'
-import { setCurrentChapterUrl, setCurrentIndex } from '@/app/store/features/currentYoutubeUrl'
+import { setCurrentChapterUrl, setCurrentIndex } from '@/app/store/features/current-yt-url'
 
 interface ChapterListProps {
     id : string
