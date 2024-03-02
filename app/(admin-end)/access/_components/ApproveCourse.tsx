@@ -1,5 +1,6 @@
 "use client"
 import { approveAccess } from '@/app/actions/approve-access/approveAccess';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import toast from 'react-hot-toast';
 
@@ -8,11 +9,13 @@ interface ApproveCourseProps {
     userId : string | null
 }
 const ApproveCourse = ({courseId , userId} : ApproveCourseProps) => {
+    const router = useRouter();
     const handleApprove = async() =>{
        try {
         
         const approve = await approveAccess(courseId,userId);
         toast.success('Approve Course Success')
+        router.refresh();
         console.log(approve)
        } catch (error) {
         console.log(error)
