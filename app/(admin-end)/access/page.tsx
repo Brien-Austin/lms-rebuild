@@ -17,7 +17,7 @@ const Users = async () => {
       {requests.map((req) => (
         <div key={req.id}>
           {req.courseAccess?.courseId !== null && req.courseAccess?.courseId !== undefined && (
-            <RequestList id={req.courseAccess.courseId}  email={req.emailAddress} courseName={req.courseAccess.courseId} />
+            <RequestList id={req.courseAccess.courseId} courseId={req.courseAccess.courseId} userId={req.userId}email={req.emailAddress} courseName={req.courseAccess.courseId} />
           )}
         </div>
       ))}

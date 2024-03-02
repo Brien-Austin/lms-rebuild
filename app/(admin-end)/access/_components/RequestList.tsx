@@ -1,14 +1,19 @@
+import { approveAccess } from '@/app/actions/approve-access/approveAccess';
 import { Button } from '@/components/ui/button';
 import { db } from '@/lib/db';
 import React from 'react'
+import ApproveCourse from './ApproveCourse';
 interface RequestListProps{
     id : string | null 
     email : string | null
+    userId: string | null
+    courseId: string | null
     courseName : string | null | undefined
 
 
 }
 const getCourseName = async (id: string) => {
+  
     const course = await db.courses.findUnique({
       where: {
         id: id,
@@ -16,7 +21,8 @@ const getCourseName = async (id: string) => {
     });
     return course?.title;
   };
-const RequestList = ( {id,email,courseName} : RequestListProps) => {
+const RequestList = ( {id,email,courseName,userId,courseId} : RequestListProps) => {
+  
   return (
     <div>
         <div className="flex border rounded p-2 justify-between items-center">
@@ -34,9 +40,8 @@ const RequestList = ( {id,email,courseName} : RequestListProps) => {
             }
 
         </div>
-        <div className={'xs bg-gradient-to-r from-indigo-500 to-indigo-600 shadow cursor-pointer p-2 text-white text-xs rounded '}>
-            Approve
-        </div>
+        <ApproveCourse courseId= { courseId} userId= { userId } />
+       
         </div>
     </div>
   )

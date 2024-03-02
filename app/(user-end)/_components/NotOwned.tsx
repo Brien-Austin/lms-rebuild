@@ -8,6 +8,7 @@ import { useAppSelector } from '@/app/store/store'
 import {useDispatch} from 'react-redux'
 import { setCurrentChapterUrl } from '@/app/store/features/current-yt-url'
 import { setDefaultProcessing } from '@/app/store/features/course-access'
+import { isAlreadyRequested } from '@/app/actions/request-access/isAlreadyRequested'
 interface NotOwnedProps {
 
     imageUrl : string
@@ -36,6 +37,18 @@ interface Chapter {
 
 const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price,firstName,courseId,totalChapters} : NotOwnedProps) => {
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    const isRequestedOrNot = async() =>{
+      const hasRequestedOrNot = await isAlreadyRequested(courseId, userId);
+      if(!hasRequestedOrNot) {
+        dispatch(setDefaultProcessing({courseId}))
+      }
+    }
+    isRequestedOrNot();
+
+  },[courseId,userId,dispatch])
+ 
 
 
   
