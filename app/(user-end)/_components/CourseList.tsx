@@ -41,33 +41,6 @@ interface Chapter {
 
 const CourseList = async({id:courseId,id, userId,chapters,isFree, description,imageUrl ,price,title,firstName,email}: CourseListProps) => {
   const hasAccess = await userHaveAccess(courseId,userId)
-
-  // const {hasAccess,processingAccess} = useAppSelector((state)=>state.courseAccess)
-  // const dispatch = useDispatch();
-  // const checkAccess = async () => {
-  //   if (typeof userId === 'string') {
-  //     const onRequest = await userHaveAccess(courseId, userId);
-  //     if (onRequest) {
-  //       dispatch(setAccess());
-  //     }
-  //   }
-    
-  //   const hasRequested = async () => {
-  //     if (typeof userId === 'string') {
-  //       const onProcessing = await isProcessing(courseId, userId);
-  //       if (onProcessing) {
-  //         dispatch(setProcessing());
-  //       }
-  //     }
-  //   };
-  // };
-
-
-  
-  // console.log(hasAccess)
-  // const {chapterYoutubeUrl} = useAppSelector((state)=>state.ChapterYTUrl)
-  
-
   return (
     <>
     {

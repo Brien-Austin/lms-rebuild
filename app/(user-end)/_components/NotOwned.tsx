@@ -1,12 +1,13 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Clock } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import RequestAccess from './RequestAccess'
 import Image from 'next/image'
 import { useAppSelector } from '@/app/store/store'
 import {useDispatch} from 'react-redux'
 import { setCurrentChapterUrl } from '@/app/store/features/current-yt-url'
+import { setDefaultProcessing } from '@/app/store/features/course-access'
 interface NotOwnedProps {
 
     imageUrl : string
@@ -34,7 +35,14 @@ interface Chapter {
   }
 
 const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price,firstName,courseId,totalChapters} : NotOwnedProps) => {
+  const dispatch = useDispatch();
+
+
+  
   const processingAccess = useAppSelector((state)=>state.courseRequest.courseRequest[courseId])
+  if(typeof processingAccess === 'undefined'){
+    dispatch(setDefaultProcessing({courseId}))
+  }
     const handleCourseView = () =>{
         if(chapters[0].youtubeUrl !== null){
           dispatch(setCurrentChapterUrl(chapters[0].youtubeUrl))
@@ -44,7 +52,7 @@ const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price
       }
 
       
-    const dispatch = useDispatch();
+
   return (
     <div onClick={handleCourseView}  className='flex flex-col h-72 rounded-lg cursor-pointer shadow-sm p-2 border'>
     {

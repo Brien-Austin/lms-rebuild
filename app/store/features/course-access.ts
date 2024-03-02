@@ -16,7 +16,13 @@ const courseAccessSlice = createSlice({
   name : 'CourseRequest',
   initialState,
   reducers : {
+    setDefaultProcessing : (state,action:PayloadAction<{courseId : string }>) =>{
+      const {courseId} = action.payload
+      state.courseRequest[courseId] = false;
 
+    },
+    
+    
     setIsProcessing : (state,action:PayloadAction<{courseId : string , isProcessing : boolean}>) =>{
       const {courseId,isProcessing} = action.payload
       state.courseRequest[courseId] = isProcessing
@@ -27,6 +33,6 @@ const courseAccessSlice = createSlice({
 
 })
 
-export const {setIsProcessing} = courseAccessSlice.actions;
+export const {setIsProcessing,setDefaultProcessing} = courseAccessSlice.actions;
 export default courseAccessSlice.reducer;
 
