@@ -13,7 +13,7 @@ interface CourseCardProps {
 
 const CourseCard = ({ title, imageUrl, description, chaptersLength ,id}: CourseCardProps) => {
   return (
-    <div className='mt-5 flex flex-col gap-5 lg:h-72 lg:w-96 '>
+    <div className='mt-5 flex flex-col gap-5sm:h-72 sm:w-96 sm:mb-24 lg:h-72 lg:w-96 '>
       <div className="flex-grow flex flex-col">
         <div className="border border-slate-50 cursor-pointer p-2 rounded-lg shadow-sm shadow-sm">
           <div className="h-48 w-full relative">
