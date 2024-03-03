@@ -1,3 +1,4 @@
+
 "use server";
 
 import { db } from "@/lib/db";
@@ -5,10 +6,28 @@ import { db } from "@/lib/db";
 export const approveAccess = async (courseId: string | null, userId: string | null) => {
 
   if ( typeof userId === "string" && typeof courseId === "string") {
+
+    const approve = await db.requestAcess.update({
+      where : {
+        userId
+      },
+      data : {
+        courseAccess : {
+          update : {
+            isGivenAccess : true,
+            isRequesting : false,
+          }
+        }
+      }
+    })
+    
+
+
     const purchase = await db.purchase.create({
       data : {
         courseId ,
-        userId
+        userId,
+        isGivenAccess : true,
     }
     })
 

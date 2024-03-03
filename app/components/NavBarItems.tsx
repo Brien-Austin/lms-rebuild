@@ -6,27 +6,24 @@ import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
 interface NavBarItemProps {
-    label : string ,
-    icon : LucideIcon,
-    href : string
+    label: string;
+    icon: LucideIcon;
+    href: string;
 }
 
-const NavBarItems = ({label , icon : Icon,href} : NavBarItemProps) => {
-
+const NavBarItems = ({ label, icon: Icon, href }: NavBarItemProps) => {
     const pathname = usePathname();
     const router = useRouter();
-    const isActive = (pathname === '/' && href === '/') || pathname === href
-  return (
-    <Link href={href}>
-    <div className={cn("flex flex-col items-center text-xs gap-2 text-slate-500 " , isActive && "text-slate-900")}>
-               <Icon className='' size={20}/>
-         <h1 className="">
-         {label}
-   
-         </h1>
-    </div>
-    </Link>
-  )
+    const isActive = (pathname === '/' && href === '/') || pathname === href;
+
+    return (
+        <Link href={href}>
+            <div className={cn("flex flex-col items-center text-xs gap-1 ", isActive && "text-slate-900")}>
+                <Icon className='' size={20} />
+                <h1 className="text-xs whitespace-nowrap">{label}</h1>
+            </div>
+        </Link>
+    );
 }
 
-export default NavBarItems
+export default NavBarItems;

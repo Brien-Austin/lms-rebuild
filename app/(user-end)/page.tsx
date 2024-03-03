@@ -57,20 +57,25 @@ const Home = async () => {
   console.log(courses)
 
   return(
+    <>
+    <h1 className=' lg:block  sm:text-md lg:text-lg font-medium text-slate-800 lg:mt-0 sm:mt-2'>Explore our courses </h1>
+    <h1 className='sm:text-xs lg:block sm:hidden   lg:text-sm  text-slate-500'>Streamline learning, manage courses, track progress with efficient Learning Management System </h1>
     
-    <div className='mb-20'>
+    <div className='mb-20 sm:flex-none lg:flex lg:flex-wrap lg:gap-5'>
       
     {
       courses.map((course,index)=>(
-        <div key={course.id} className='mt-5 '>
+        <div key={course.id} className='mt-5 z'>
        <CourseList 
        userId={userId}
+       category={course.category}
 
 
        key={course.id}
        firstName={username}
        email={email}
        id={course.id}
+       
        title={course.title}
        imageUrl={course.imageUrl}
        price={course.price}
@@ -78,12 +83,14 @@ const Home = async () => {
        isFree={course.isFree}
        description={course.description}
        chapters={course.chapter}
+
        />
 
         </div>
       ))
 }
     </div>
+    </>
   )
 }
 

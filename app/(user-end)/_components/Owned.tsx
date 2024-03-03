@@ -16,6 +16,7 @@ interface OwnedProps {
     title : string
     price : number,
     description : string
+    category : string,
     totalChapters : number,
     userId : string,
     email : string
@@ -36,7 +37,7 @@ interface Chapter {
     description: string | null
   }
 
-const Owned = ({title,imageUrl,isFree,description,userId,email,chapters,price,firstName,courseId,totalChapters} : OwnedProps) => {
+const Owned = ({title,imageUrl,isFree,description,userId,email,chapters,price,firstName,  category,courseId,totalChapters} : OwnedProps) => {
   const dispatch = useDispatch();
   const isGivenAccess = useAppSelector((state)=>state.courseAccessGiven.CourseAccess[courseId])
   useEffect(()=>{
@@ -73,20 +74,26 @@ const Owned = ({title,imageUrl,isFree,description,userId,email,chapters,price,fi
 
 
   return (
-    <Link onClick={handleCourseView} href={`/course/${courseId}`} className='flex flex-col h-72 rounded-lg cursor-pointer shadow-sm p-2 border'>
+    <Link onClick={handleCourseView} href={`/course/${courseId}`} className='sm:flex sm:flex-col sm:h-72 sm:rounded-lg cursor-pointer shadow-md p-2 lg:flex lg:flex-col lg:h-72 lg:w-96  border'>
     {
       imageUrl !== null && (
-        <div className='relative h-36 w-full'>
-          <Image unoptimized={true} src={imageUrl} fill className=' rounded-md shadow-md object-cover ' alt='text' />
-        </div>
+<div className='relative h-36 w-full'>
+<h1 className='text-xs top-0 left-0 absolute z-10 border border-indigo-600 bg-white p-1 rounded text-indigo-600' style={{ textShadow: '2px 2px 3px rgba(0, 0, 0, 0.1)' }}>{category}</h1>
+
+  <Image unoptimized={true} src={imageUrl} fill className='rounded-md shadow-md object-cover' alt='text' />
+</div>
+
       )
     }
+   
 
  
     <div className='flex-grow'>
+     <div className="flex justify-between items-center">
      <h1 className="text-md pt-2 pb-1">
      {title}
-     </h1>
+     </h1>   
+     </div>
      <h1 className='text-muted-foreground italic text-xs truncate'>
       {description}
      </h1>

@@ -36,7 +36,9 @@ const AuthLayout = async(
        <NavBar/>
       <div className="p-5">
       <TopNavBar/>
+       <div className="lg:ml-24 sm:ml-0">
        {children}
+       </div>
       </div>
     </div>
            </>

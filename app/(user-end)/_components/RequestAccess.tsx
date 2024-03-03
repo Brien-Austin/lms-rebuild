@@ -1,4 +1,5 @@
 "use client"
+import { notApproved } from '@/app/actions/approve-access/notApproved'
 import { isAlreadyRequested } from '@/app/actions/request-access/isAlreadyRequested'
 import { getCourseAccess } from '@/app/actions/request-access/requestAccess'
 import { setIsProcessing } from '@/app/store/features/course-access'
@@ -25,7 +26,7 @@ const RequestAccess = ({userId,email,firstName,courseId}:RequestAccessProps) => 
   useEffect(()=>{
     const isRequested = async()=>{
       if(typeof courseId === 'string' && typeof userId === 'string'){
-        const isProcessing = await isAlreadyRequested(courseId,userId)
+        const isProcessing = await notApproved(courseId,userId)
         console.log(isProcessing)
        if(typeof isProcessing === 'boolean'){
         dispatch(setIsProcessing({courseId,isProcessing}))

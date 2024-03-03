@@ -27,7 +27,7 @@ interface CourseListProps {
 
 const CourseContainer = ({id,title,imageUrl,price,isPublished,description,isFree,chapters}:CourseListProps) => {
   return (
-    <Link href={`/course/${id}`} className='flex flex-col h-72 rounded-lg cursor-pointer shadow-sm p-2 border'>
+    <Link href={`/course/${id}`} className='flex flex-col h-10 rounded-lg cursor-pointer shadow-sm p-2 border'>
     {
       imageUrl !== null && (
         <div className='relative h-36 w-full'>

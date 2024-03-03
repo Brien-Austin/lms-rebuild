@@ -8,9 +8,10 @@ import Image from 'next/image'
 import { useAppSelector } from '@/app/store/store'
 import {useDispatch} from 'react-redux'
 import { setCurrentChapterUrl } from '@/app/store/features/current-yt-url'
-import { setDefaultProcessing } from '@/app/store/features/course-access'
+import { setDefaultProcessing, setIsProcessing } from '@/app/store/features/course-access'
 import { isAlreadyRequested } from '@/app/actions/request-access/isAlreadyRequested'
 import toast from 'react-hot-toast'
+import { notApproved } from '@/app/actions/approve-access/notApproved'
 interface NotOwnedProps {
 
     imageUrl : string
@@ -19,6 +20,7 @@ interface NotOwnedProps {
     description : string
     totalChapters : number,
     userId : string,
+    category : string,
     email : string
     courseId : string,
     firstName : string
@@ -37,7 +39,7 @@ interface Chapter {
     description: string | null
   }
 
-const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price,firstName,courseId,totalChapters} : NotOwnedProps) => {
+const NotOwned = ({title,imageUrl,isFree,category,description,userId,email,chapters,price,firstName,courseId,totalChapters} : NotOwnedProps) => {
   const dispatch = useDispatch();
   const onClick = async () => {
     try {
@@ -55,10 +57,10 @@ const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price
 
   useEffect(()=>{
     const isRequestedOrNot = async() =>{
-      const hasRequestedOrNot = await isAlreadyRequested(courseId, userId);
+      const isProcessing = await notApproved(courseId, userId);
       
-      if(!hasRequestedOrNot) {
-        dispatch(setDefaultProcessing({courseId}))
+      if(isProcessing) {
+        dispatch(setIsProcessing({courseId,isProcessing}))
       }
     }
     isRequestedOrNot();
@@ -69,6 +71,7 @@ const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price
 
   
   const processingAccess = useAppSelector((state)=>state.courseRequest.courseRequest[courseId])
+  console.log(processingAccess);
   if(typeof processingAccess === 'undefined'){
     dispatch(setDefaultProcessing({courseId}))
   }
@@ -83,11 +86,13 @@ const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price
       
 
   return (
-    <div onClick={handleCourseView}  className='flex flex-col h-72 rounded-lg cursor-pointer shadow-sm p-2 border'>
+    <div onClick={handleCourseView}  className='sm:flex sm:flex-col sm:h-72 sm:rounded-lg cursor-pointer shadow-sm sm:p-2 lg:flex lg:flex-col lg:h-72 lg:w-96 lg:shadow-md border'>
     {
       imageUrl !== null && (
         <div className='relative h-36 w-full'>
-          <Image unoptimized={true} src={imageUrl} fill className=' rounded-md shadow-md object-cover ' alt='text' />
+        <h1 className='text-xs top-0 left-0 absolute z-10 border border-indigo-600 bg-white p-1 rounded text-indigo-600' style={{ textShadow: '2px 2px 3px rgba(0, 0, 0, 0.1)' }}>{category}</h1>
+        
+          <Image unoptimized={true} src={imageUrl} fill className='rounded-md shadow-md object-cover' alt='text' />
         </div>
       )
     }

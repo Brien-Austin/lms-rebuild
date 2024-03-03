@@ -22,9 +22,9 @@ const navRoutes = [
 ]
 const BottomNavBar = () => {
   return (
-   <div className="bottom-0 left-0 px-5 py-2 fixed w-full h-16 border-t border-slate-200 bg-white z-10">
-    <div className="w-4/5  bg-gradient from-[#FF5F5F] to-[#FF9080]"></div>
-   <div className="  w-full h-full flex justify-evenly items-center bg-white  ">
+   <div className="sm:bottom-0 sm:left-0 sm:px-5 sm:py-2 sm:fixed sm:w-full sm:h-16 sm:border-t sm:border-slate-200 sm:bg-white sm:z-10  lg:shadow-lg  lg:left-0 lg:top-0 lg:mb-10 lg:px-12 lg:py-2 fixed lg:h-full lg:flex lg:flex-col lg:w-16 lg:justify-center lg:items-center   lg:bg-white z-10">
+ 
+   <div className="  sm:w-full sm:h-full sm:flex sm:justify-evenly sm:items-center sm:bg-white lg:flex lg:flex-col lg:justify-start lg:gap-16  lg:mt-10   ">
   {
     navRoutes.map((nav,index)=>(
         <>

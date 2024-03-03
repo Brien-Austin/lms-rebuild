@@ -17,6 +17,19 @@ export async function POST( req : Request , {params} : {params : {courseId : str
                 isPublished : true  
             }
         })
+        const approve = await db.requestAcess.update({
+            where : {
+              userId : user.id
+            },
+            data : {
+              courseAccess : {
+                update : {
+                  isGivenAccess : true,
+                  isRequesting : false,
+                }
+              }
+            }
+          })
         const purchase = await db.purchase.findUnique({
             where: {
               userId_courseId: {

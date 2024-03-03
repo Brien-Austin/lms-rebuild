@@ -36,7 +36,7 @@ const OwnedCoursesList = async( {id} : OwnedCoursesProps) => {
     console.log('Owned courses',courses)
    
   return (
-    <div>
+    <div className='sm:hidden lg:block'>
       {
         <CourseCard id={courses?.id} title={courses?.title} description={courses?.description} imageUrl={courses?.imageUrl} chaptersLength={courses?.chapter.length}/>
       }

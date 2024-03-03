@@ -18,6 +18,7 @@ interface CourseListProps {
   userId : string | null | undefined
   id: string,
   title: string,
+  category: string | null,
   imageUrl: string | null,
   price: number | null,
   isPublished: boolean,
@@ -34,21 +35,25 @@ interface Chapter {
   isPublished: boolean | null,
   imageUrl: string | null,
   title: string | null,
+
   
   youtubeUrl: string | null,
   description: string | null
 }
 
-const CourseList = async({id:courseId,id, userId,chapters,isFree, description,imageUrl ,price,title,firstName,email}: CourseListProps) => {
+const CourseList = async({id:courseId,id, userId,chapters,isFree, category,description,imageUrl ,price,title,firstName,email}: CourseListProps) => {
   const hasAccess = await userHaveAccess(courseId,userId)
   return (
     <>
+        
     {
+  
       !hasAccess ? 
       (
         <> 
         <NotOwned
               title={title}
+              category={category || ''}
               imageUrl={imageUrl || ''}
               isFree={isFree || false}
               description={description || ''}
@@ -67,6 +72,7 @@ const CourseList = async({id:courseId,id, userId,chapters,isFree, description,im
          <Owned
               title={title}
               imageUrl={imageUrl || ''}
+              category={category || ''}
               isFree={isFree || false}
               description={description || ''}
               userId={userId || ''}

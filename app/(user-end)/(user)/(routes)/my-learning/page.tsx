@@ -23,19 +23,7 @@ const MyLearning = async () => {
   const {userId} = auth();
   const userID : string = userId !==null ? userId : '';
 
-  const ownedCourses = await db.requestAcess.findMany({
-    where : {
-      userId : userID,
-      courseAccess : {
-        isGivenAccess : true
-      }
-      
-    },
-    select : {
-      courseAccess : true
-    }
-  })
-
+ 
   const purchased = await db.purchase.findMany({
     where : {
       userId : userID
@@ -45,7 +33,7 @@ const MyLearning = async () => {
     }
   })
   console.log(purchased)
- console.log(ownedCourses)
+ 
   if(!userId ){
     return redirect('/')
 
@@ -67,7 +55,7 @@ const MyLearning = async () => {
    <h1 className="whitespace-nowrap text-[18px]">
    {firstName}
    </h1>
-   <h1 className='text-[14px] text-muted-foreground'>{ownedCourses.length } course enrolled</h1>
+   <h1 className='text-[14px] text-muted-foreground'>{purchased.length } course enrolled</h1>
    </div>
    
 
@@ -89,14 +77,18 @@ const MyLearning = async () => {
    </div>
   
  {
-  ownedCourses.length > 0 ? (
+  purchased.length > 0 ? (
     <>
+    <div className='flex items-center gap-10 flex-wrap'>
+
+  
    {
-    ownedCourses.map((course)=>(
-      <div key={course.courseAccess?.id}>
-       {typeof course.courseAccess?.courseId === 'string'  &&
+    purchased.map((course)=>(
+      <div key={course.courseId} >
+      
+       {typeof course.courseId === 'string'  &&
        (
-        <OwnedCoursesList id={course.courseAccess?.courseId} />
+        <OwnedCoursesList id={course.courseId} />
        )
 
        }
@@ -105,6 +97,7 @@ const MyLearning = async () => {
       </div>
     ))
    }
+     </div>
 
     </>
   ) : 

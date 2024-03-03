@@ -117,6 +117,7 @@ model Purchase {
   userId String 
 
   courseId String @db.ObjectId
+  isGivenAccess Boolean @default(false)
   course Courses @relation( fields: [courseId],references: [id],onDelete: Cascade)
   
 
