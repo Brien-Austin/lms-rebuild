@@ -26,7 +26,10 @@ const RequestAccess = ({userId,email,firstName,courseId}:RequestAccessProps) => 
     const isRequested = async()=>{
       if(typeof courseId === 'string' && typeof userId === 'string'){
         const isProcessing = await isAlreadyRequested(courseId,userId)
+        console.log(isProcessing)
+       if(typeof isProcessing === 'boolean'){
         dispatch(setIsProcessing({courseId,isProcessing}))
+       }
 
       }
     }

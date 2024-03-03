@@ -1,8 +1,11 @@
 import { db } from '@/lib/db';
 import React, { useEffect, useState } from 'react';
 import RequestList from './_components/RequestList';
+import { auth } from '@clerk/nextjs';
 
 const Users = async () => {
+  const {userId} = auth();
+  
   const requests = await db.requestAcess.findMany({
     where : {
       courseAccess : {
@@ -13,6 +16,8 @@ const Users = async () => {
     courseAccess : true
   }
   });
+  
+
 
   
 
@@ -30,7 +35,7 @@ const Users = async () => {
       {requests.map((req) => (
         <div key={req.id}>
           {req.courseAccess?.courseId !== null && req.courseAccess?.courseId !== undefined && (
-            <RequestList id={req.courseAccess.courseId} courseId={req.courseAccess.courseId} userId={req.userId}email={req.emailAddress} courseName={req.courseAccess.courseId} />
+            <RequestList  reqId={req.id}id={req.courseAccess.courseId} courseId={req.courseAccess.courseId} userId={req.userId}email={req.emailAddress} courseName={req.courseAccess.courseId} />
           )}
         </div>
       ))}

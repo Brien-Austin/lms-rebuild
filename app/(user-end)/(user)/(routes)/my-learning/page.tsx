@@ -39,6 +39,9 @@ const MyLearning = async () => {
   const purchased = await db.purchase.findMany({
     where : {
       userId : userID
+    },
+    select : {
+      courseId : true
     }
   })
   console.log(purchased)

@@ -65,9 +65,11 @@ const router = useRouter();
 const toggleEdit =()=> setEditing((current)=>!current)
    
     return ( 
-       <div className='mt-6 border  rounded-md px-5 py-2'>
+       <div className='mt-2 border  rounded-md px-3 py-2'>
         <div className='font-medium flex items-center justify-between '>
+            <h1 className="text-sm text-slate-800">
             Course title
+            </h1>
             <Button onClick={toggleEdit} variant="ghost">
                {
                 isEditing ? (
@@ -89,7 +91,7 @@ const toggleEdit =()=> setEditing((current)=>!current)
         </div>
         {!isEditing ? (
             <>
-            <p>{title}</p>
+            <p className='text-xs text-slate-600'>{title}</p>
             </>
         ) : (<>
         <Form {...form}>

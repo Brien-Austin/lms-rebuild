@@ -17,19 +17,15 @@ export async function POST( req : Request , {params} : {params : {courseId : str
                 isPublished : true  
             }
         })
-
         const purchase = await db.purchase.findUnique({
-
-            where : {
-                
-            
-                    userId : user.id,
-                    course : {
-                        id : params.courseId
-                    }
-                
-            }
-        })
+            where: {
+              userId_courseId: {
+                userId: user.id,
+                courseId : params.courseId,
+              },
+            },
+          });
+        
 
         if(purchase){
             return new NextResponse('Already purchased')

@@ -8,11 +8,7 @@ export const getCourseAccess = async (
     emailAddress: string
 ) => {
    try {
-    const existingRequest = await db.requestAcess.findUnique({
-        where: {
-            userId: userId,
-        },
-    });
+    
 
     const requestAccess = await db.requestAcess.create({
         data: {

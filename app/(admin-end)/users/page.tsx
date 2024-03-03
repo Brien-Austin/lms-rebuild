@@ -1,9 +1,17 @@
-import React from 'react'
+import { db } from '@/lib/db';
+import React from 'react';
+import UsersData from './_components/UsersData';
 
-const GrantAccess = () => {
+const GrantAccess = async () => {
+  const users = await db.users.findMany({});
+
   return (
-    <div>GrantAccess</div>
-  )
-}
+    <div className="flex flex-col gap-5 items-center">
+      {users.map((user) => (
+        <UsersData key={user.id} id={user.id} email={user.email} imageUrl={user.imageUrl} />
+      ))}
+    </div>
+  );
+};
 
-export default GrantAccess
+export default GrantAccess;

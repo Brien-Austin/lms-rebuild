@@ -31,7 +31,7 @@ interface Chapter {
     index: number | null,
     isPublished: boolean | null,
     imageUrl: string | null,
-    title: string | null,
+    title: string | null, 
     
     youtubeUrl: string | null,
     description: string | null
@@ -56,6 +56,7 @@ const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price
   useEffect(()=>{
     const isRequestedOrNot = async() =>{
       const hasRequestedOrNot = await isAlreadyRequested(courseId, userId);
+      
       if(!hasRequestedOrNot) {
         dispatch(setDefaultProcessing({courseId}))
       }

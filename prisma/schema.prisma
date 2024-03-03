@@ -36,7 +36,7 @@ model CourseAccess  {
 model RequestAcess{
     id String @id @default(auto()) @map("_id") @db.ObjectId
     emailAddress String
-    userId String 
+    userId String  @unique
     firstName String
     courseAccessId String? @db.ObjectId
     courseAccess CourseAccess? @relation(fields: [courseAccessId],references: [id])
@@ -53,6 +53,7 @@ model Courses {
   title String
   imageUrl String?
   price Int?
+  category String?
   isPublished Boolean @default(false)
   isFree Boolean? @default(false)
   description String?
@@ -61,6 +62,7 @@ model Courses {
   users Users[]
   chapter Chapters[]
   purchase Purchase[]
+  
 
 
 
@@ -106,14 +108,21 @@ model CoursePurchase {
   userId String 
   courseId String
   userProgress Int
+  
 }
 
 model Purchase {
     id String @id @default(auto()) @map("_id") @db.ObjectId
-    userId String @unique
+
+  userId String 
 
   courseId String @db.ObjectId
   course Courses @relation( fields: [courseId],references: [id],onDelete: Cascade)
+  
+
+
+  @@index([courseId])
+  @@unique([userId,courseId])
 }
 
 model StripeCustomer {

@@ -1,5 +1,6 @@
 "use client"
 import { approveAccess } from '@/app/actions/approve-access/approveAccess';
+import { deleteRequest } from '@/app/actions/deleteRequest/deleteRequest';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import toast from 'react-hot-toast';
@@ -7,13 +8,16 @@ import toast from 'react-hot-toast';
 interface ApproveCourseProps {
     courseId : string | null
     userId : string | null
+    reqId : string | null
 }
-const ApproveCourse = ({courseId , userId} : ApproveCourseProps) => {
+const ApproveCourse = ({courseId , userId , reqId} : ApproveCourseProps) => {
     const router = useRouter();
     const handleApprove = async() =>{
        try {
         
         const approve = await approveAccess(courseId,userId);
+        const deleterequest = await deleteRequest(reqId);
+    
         toast.success('Approve Course Success')
         router.refresh();
         console.log(approve)

@@ -5,24 +5,20 @@ import { db } from "@/lib/db"
 export const userHaveAccess = async(courseId : string , userId : string | null | undefined) =>{
 
    if(typeof userId === "string"){
-    const hasAccess = await db.requestAcess.findUnique({
+    const purchased = await db.purchase.findUnique({
         where: {
-            userId :userId,
-            courseAccess :{
-                courseId :courseId
-            }
-            
-        
+          userId_courseId: {
+            userId: userId,
+            courseId,
+          },
         },
-        include : {
-            courseAccess : true
-        }
-       
-      
-        
-    })
+      });
+    
 
-    return hasAccess?.courseAccess?.isGivenAccess;
+    if(purchased){
+        return true;
+    }
+    return false;
    }
 
 
@@ -31,24 +27,24 @@ export const userHaveAccess = async(courseId : string , userId : string | null |
 }
 export const isProcessing = async(courseId : string , userId : string) =>{
 
-    const hasAccess = await db.requestAcess.findUnique({
+  if(typeof userId === "string"){
+    const purchased = await db.purchase.findUnique({
         where: {
-            userId :userId,
-            courseAccess :{
-                courseId :courseId
-            }
-            
-        
+          userId_courseId: {
+            userId: userId,
+            courseId:courseId ,
+          },
         },
-        include : {
-            courseAccess : true
-        }
-       
-      
-        
-    })
+      });
+    
 
-    return hasAccess?.courseAccess?.isRequesting;
+    if(purchased){
+        return true;
+    }
+    return false;
+   }
+
+
     
 
    

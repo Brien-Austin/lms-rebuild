@@ -74,6 +74,7 @@ const CreatedCourses:React.FC<CreatedCoursesProps> = async({title,price,id}) => 
         
         <h1 className='text-lg text-slate-600 truncate px-0'>{title}</h1>
         <CourseActions
+        category={courses?.category}
         title = {courses?.title}
         price = {courses?.price}
         imageUrl = {courses?.imageUrl}

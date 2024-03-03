@@ -46,6 +46,7 @@ const Owned = ({title,imageUrl,isFree,description,userId,email,chapters,price,fi
       console.log(isAccessGiven)
       if(isAccessGiven){
         dispatch(setAccess({courseId,isAccessGiven}))
+
       }
       else {
         dispatch(setAccessNotGiven({courseId}))
@@ -59,6 +60,7 @@ const Owned = ({title,imageUrl,isFree,description,userId,email,chapters,price,fi
    
 
   },[courseId,dispatch,userId])
+  console.log(isGivenAccess)
   const processingAccess = useAppSelector((state)=>state.courseRequest.courseRequest[courseId])
     const handleCourseView = () =>{
         if(chapters[0].youtubeUrl !== null){

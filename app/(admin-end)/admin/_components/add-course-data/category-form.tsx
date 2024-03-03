@@ -16,27 +16,27 @@ import toast from 'react-hot-toast'
 import { Pencil } from 'lucide-react'
 import { useState } from 'react'
 import path from 'path'
-import { Textarea } from '@/components/ui/textarea'
-import { editDescription } from '@/app/actions/course/edit/editDescription'
+import { editTitle } from '@/app/actions/course/edit/editTitle'
+import { editCategory } from '@/app/actions/course/edit/editCategory'
 const formSchema = z.object({
-    description:z.string().min(1,{
+    category:z.string().min(1,{
         message:"Title is required"
     })
 })
 
-interface descriptionProps {
-  description : string | null | undefined
+interface categoryFormProps {
+  category : string | null | undefined
   id : string | null | undefined
 }
 
-const DescriptionForm = ({description,id} : descriptionProps) => {
+const CategoryForm = ({category,id} : categoryFormProps) => {
 
     const [isEditing , setEditing] = useState<boolean>(false)
  
     const form = useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
         defaultValues:{
-            description:""
+            category:""
         }
     })
     
@@ -46,30 +46,30 @@ const router = useRouter();
 
     const onSubmit =  async(values:z.infer<typeof formSchema>) =>{
         try {
-            if(id !== undefined && id !== null){
-              console.log(values.description);
-              await editDescription(values.description , id);
-              toast.success('Title updated successfully')
-              toggleEdit();
-              router.refresh();
-            }
-              
-            
-          } catch  {
-              console.log('Error from Component')
-              toast.error('Something went wrong')
-              
+          if(id !== undefined && id !== null){
+            console.log(values.category);
+            await editCategory(values.category , id);
+            toast.success('Title updated successfully')
+            toggleEdit();
+            router.refresh();
           }
+            
+          
+        } catch  {
+            console.log('Error from Component')
+            toast.error('Something went wrong')
+            
+        }
        
     }
  
 const toggleEdit =()=> setEditing((current)=>!current)
    
     return ( 
-       <div className='mt-2 border  rounded-md px-5 py-2'>
+       <div className='mt-2 border  rounded-md px-3 py-2'>
         <div className='font-medium flex items-center justify-between '>
             <h1 className="text-sm text-slate-800">
-            Course description
+            Course category
             </h1>
             <Button onClick={toggleEdit} variant="ghost">
                {
@@ -80,7 +80,7 @@ const toggleEdit =()=> setEditing((current)=>!current)
                 ) : (
                     <>
                     <Pencil className='h-4 w-4 mr-2'/>
-                    Edit Title
+                    Edit category
                     </>
                    )
                }
@@ -92,16 +92,16 @@ const toggleEdit =()=> setEditing((current)=>!current)
         </div>
         {!isEditing ? (
             <>
-            <p className='text-xs text-slate-600'> {description}</p>
+            <p className='text-xs text-slate-600'>{category}</p>
             </>
         ) : (<>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 mt-4'>
-                <FormField control={form.control} name="description" render={({field})=>
+                <FormField control={form.control} name="category" render={({field})=>
             <FormItem>
                 <FormControl>
-                    <Textarea disabled={isSubmitting}
-                    placeholder={`e.g ${description}'`}
+                    <Input disabled={isSubmitting}
+                    placeholder={`e.g ${category}'`}
                     {...field}/>
                 </FormControl>
             </FormItem>}/>
@@ -122,4 +122,4 @@ const toggleEdit =()=> setEditing((current)=>!current)
      );
 }
  
-export default DescriptionForm;
+export default CategoryForm;

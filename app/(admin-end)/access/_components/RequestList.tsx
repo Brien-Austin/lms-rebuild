@@ -4,11 +4,13 @@ import { db } from '@/lib/db';
 import React from 'react'
 import ApproveCourse from './ApproveCourse';
 interface RequestListProps{
+  reqId : string | null 
     id : string | null 
     email : string | null
     userId: string | null
     courseId: string | null
     courseName : string | null | undefined
+
 
 
 }
@@ -21,7 +23,7 @@ const getCourseName = async (id: string) => {
     });
     return course?.title;
   };
-const RequestList = ( {id,email,courseName,userId,courseId} : RequestListProps) => {
+const RequestList = ( {id,email,courseName,userId,courseId,reqId} : RequestListProps) => {
   
   return (
     <div>
@@ -40,7 +42,7 @@ const RequestList = ( {id,email,courseName,userId,courseId} : RequestListProps) 
             }
 
         </div>
-        <ApproveCourse courseId= { courseId} userId= { userId } />
+        <ApproveCourse reqId={reqId} courseId= { courseId} userId= { userId } />
        
         </div>
     </div>

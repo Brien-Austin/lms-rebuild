@@ -15,12 +15,14 @@ import TitleForm from './add-course-data/title-form';
 import DescriptionForm from './add-course-data/description-from';
 import PriceForm from './add-course-data/price-form';
 import { ImageForm } from './add-course-data/image-form';
+import CategoryForm from './add-course-data/category-form';
   
 
 
   interface EditCourseProps {
     id: string;
     title: string | null | undefined;
+    category: string | null | undefined;
     imageUrl: string | null | undefined;
     price: number | null | undefined;
     isFree: boolean | null | undefined;
@@ -28,7 +30,7 @@ import { ImageForm } from './add-course-data/image-form';
  
   }
 
-const EditCourse = ({id,title,imageUrl,price,isFree,description} : EditCourseProps) => {
+const EditCourse = ({id,title,imageUrl,price,isFree,description,category} : EditCourseProps) => {
 
     const handleEdit = () =>{
 
@@ -42,6 +44,7 @@ const EditCourse = ({id,title,imageUrl,price,isFree,description} : EditCoursePro
         </DrawerTrigger>
         <DrawerContent className='p-5'>
            <TitleForm id={id} title={title}/>
+           <CategoryForm id={id} category={category}/>
            <DescriptionForm id={id} description={description}/>
            <PriceForm id={id} price={price}/>
            <ImageForm id={id} imageUrl={imageUrl}/>

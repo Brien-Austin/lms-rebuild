@@ -9,6 +9,7 @@ import EditCourse from './edit-course'
 interface CourseActionsProps {
     id: string;
     title: string | null | undefined;
+    category: string | null | undefined;
     imageUrl: string | null | undefined;
     price: number | null | undefined;
     isFree: boolean | null | undefined;
@@ -18,7 +19,7 @@ interface CourseActionsProps {
 
 
 
-const CourseActions:React.FC<CourseActionsProps> = ({id,title,imageUrl,price,isFree,description}) => {
+const CourseActions:React.FC<CourseActionsProps> = ({id,title,imageUrl,price,isFree,description,category}) => {
     const router = useRouter()
 
     const handleDelete = async()=>{
@@ -43,8 +44,10 @@ const CourseActions:React.FC<CourseActionsProps> = ({id,title,imageUrl,price,isF
              <Eye size={12} className='text-green-500'/>
          </div>
        <EditCourse 
+
        id={id}
        title = {title}
+       category={category}
        price = {price}
        imageUrl = {imageUrl}
        isFree = {isFree}
