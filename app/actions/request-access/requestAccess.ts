@@ -10,18 +10,17 @@ export const getCourseAccess = async (
    try {
     
 
-    const requestAccess = await db.requestAcess.create({
+    const requestAccess = await db.requestAcess.update({
+        where : {
+            userId,
+            
+        },
         data: {
-            userId: userId,
-            firstName: firstName,
-            emailAddress: emailAddress,
-            courseAccess: {
-                create: {
-                    courseId : courseId,
-                 
-                    
-                },
-            },
+            courseAccess : {
+                create : {
+                    courseId
+                }
+            }
         },
         include : {
             courseAccess : true

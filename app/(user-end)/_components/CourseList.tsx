@@ -43,6 +43,7 @@ interface Chapter {
 
 const CourseList = async({id:courseId,id, userId,chapters,isFree, category,description,imageUrl ,price,title,firstName,email}: CourseListProps) => {
   const hasAccess = await userHaveAccess(courseId,userId)
+  console.log(hasAccess)
   return (
     <>
         
@@ -71,6 +72,7 @@ const CourseList = async({id:courseId,id, userId,chapters,isFree, category,descr
         <>
          <Owned
               title={title}
+              hasOwned={hasAccess}
               imageUrl={imageUrl || ''}
               category={category || ''}
               isFree={isFree || false}

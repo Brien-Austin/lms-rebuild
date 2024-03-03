@@ -1,7 +1,7 @@
 "use client"
 import { approveAccess } from '@/app/actions/approve-access/approveAccess';
 import { deleteRequest } from '@/app/actions/deleteRequest/deleteRequest';
-import { setAccess } from '@/app/store/features/course-access-given';
+
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import toast from 'react-hot-toast';
@@ -19,10 +19,7 @@ const ApproveCourse = ({courseId , userId , reqId} : ApproveCourseProps) => {
        try {
         
         const isAccessGiven = await approveAccess(courseId,userId);
-        if(isAccessGiven && typeof courseId == 'string'){
-          dispatch(setAccess({courseId,isAccessGiven}))
-        }
-        
+      
     
         toast.success('Approve Course Success')
         router.refresh();

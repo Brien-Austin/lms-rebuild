@@ -28,7 +28,7 @@ const BottomNavBar = () => {
   {
     navRoutes.map((nav,index)=>(
         <>
-          <NavBarItems  key={index} label={nav.label} icon={nav.icon} href={nav.href}/>
+          <NavBarItems  key={nav.label} label={nav.label} icon={nav.icon} href={nav.href}/>
         </>
     ))
   }

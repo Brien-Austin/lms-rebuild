@@ -11,13 +11,16 @@ export const notApproved = async (courseId: string, userId: string) => {
                     courseId,
                     isRequesting: true
                 }
+            },
+            include : {
+                courseAccess : true
             }
         });
 
         console.log('[notApproved Result]:', notApproved);
 
-        if (notApproved !== null) {
-            return true;
+        if (notApproved) {
+            return notApproved.courseAccess?.isRequesting;
         }
 
         else {

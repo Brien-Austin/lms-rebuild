@@ -35,7 +35,7 @@ const Categories = () => {
   
   
 
-  }, [] )
+  }, [isLoading] )
   console.log(categories)
   return (
     <>
