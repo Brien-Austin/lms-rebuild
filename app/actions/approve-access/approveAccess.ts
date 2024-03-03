@@ -21,6 +21,13 @@ export const approveAccess = async (courseId : string | null , userId : string |
                 }
             }
         })
+
+        const purchase = await db.purchase.create({
+            data : {
+                userId,
+                courseId : courseId
+            }
+        })
         if(approved) {
             return true;
         }
