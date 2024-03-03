@@ -35,6 +35,13 @@ const MyLearning = async () => {
       courseAccess : true
     }
   })
+
+  const purchased = await db.purchase.findMany({
+    where : {
+      userId : userID
+    }
+  })
+  console.log(purchased)
  console.log(ownedCourses)
   if(!userId ){
     return redirect('/')

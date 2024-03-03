@@ -36,7 +36,7 @@ model CourseAccess  {
 model RequestAcess{
     id String @id @default(auto()) @map("_id") @db.ObjectId
     emailAddress String
-    userId String @unique
+    userId String 
     firstName String
     courseAccessId String? @db.ObjectId
     courseAccess CourseAccess? @relation(fields: [courseAccessId],references: [id])
@@ -87,7 +87,7 @@ model UserProgress {
     userId String
     courseId String
     boughtCourseProgress boughtCourseProgress[]
-  
+
     
 
 }
