@@ -8,8 +8,20 @@ export const getCourseAccess = async (
     emailAddress: string
 ) => {
    try {
+
+    const existingAccess = await db.requestAcess.findUnique({
+        where : {
+            userId,
+            
+        },
+        
+        include : {
+            courseAccess : true
+        }
+    });
     
 
+ if(existingAccess){
     const requestAccess = await db.requestAcess.update({
         where : {
             userId,
@@ -26,7 +38,24 @@ export const getCourseAccess = async (
             courseAccess : true
         }
     });
-    console.log(requestAccess.courseAccess)
+ }
+ const requestAccess = await db.requestAcess.create({
+  
+    data: {
+        userId,
+        firstName,
+        emailAddress,
+        courseAccess : {
+            create : {
+                courseId
+            }
+        }
+    },
+    include : {
+        courseAccess : true
+    }
+});
+    
 
     return requestAccess.courseAccess;
     
