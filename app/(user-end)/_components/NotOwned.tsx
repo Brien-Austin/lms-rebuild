@@ -1,5 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
+import axios from 'axios'
 import { Clock } from 'lucide-react'
 import React, { useEffect } from 'react'
 import RequestAccess from './RequestAccess'
@@ -9,6 +10,7 @@ import {useDispatch} from 'react-redux'
 import { setCurrentChapterUrl } from '@/app/store/features/current-yt-url'
 import { setDefaultProcessing } from '@/app/store/features/course-access'
 import { isAlreadyRequested } from '@/app/actions/request-access/isAlreadyRequested'
+import toast from 'react-hot-toast'
 interface NotOwnedProps {
 
     imageUrl : string
@@ -37,6 +39,19 @@ interface Chapter {
 
 const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price,firstName,courseId,totalChapters} : NotOwnedProps) => {
   const dispatch = useDispatch();
+  const onClick = async () => {
+    try {
+ 
+
+      const response = await axios.post(`/api/courses/${courseId}/checkout`)
+
+      window.location.assign(response.data.url);
+    } catch {
+      toast.error("Something went wrong");
+    } finally {
+      
+    }
+  }
 
   useEffect(()=>{
     const isRequestedOrNot = async() =>{
@@ -106,7 +121,7 @@ const NotOwned = ({title,imageUrl,isFree,description,userId,email,chapters,price
       ) : (
           <>
            <h1 className='font-semibold text-md text-black'> &#8377;{price}</h1>
-          <Button variant={'purchase'}>
+          <Button onClick={onClick} variant={'purchase'}>
   Buy course
  </Button>
           </>
