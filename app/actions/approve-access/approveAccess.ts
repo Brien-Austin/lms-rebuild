@@ -15,7 +15,7 @@ export const approveAccess = async (courseId: string | null, userId: string | nu
         courseAccess : {
           update : {
             isGivenAccess : true,
-            isRequesting : true,
+            isRequesting : false,
           }
         }
       },include : {
