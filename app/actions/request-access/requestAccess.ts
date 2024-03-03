@@ -21,24 +21,25 @@ export const getCourseAccess = async (
     });
     
 
- if(existingAccess){
-    const requestAccess = await db.requestAcess.update({
-        where : {
+    if (existingAccess) {
+        const requestAccess = await db.requestAcess.update({
+          where: {
             userId,
-            
-        },
-        data: {
-            courseAccess : {
-                create : {
-                    courseId
-                }
-            }
-        },
-        include : {
-            courseAccess : true
-        }
-    });
- }
+          },
+          data: {
+            courseAccess: {
+              create: {
+                courseId,
+              },
+            },
+          },
+          include: {
+            courseAccess: true,
+          },
+        });
+        return requestAccess.courseAccess;
+      }
+      
  const requestAccess = await db.requestAcess.create({
   
     data: {
