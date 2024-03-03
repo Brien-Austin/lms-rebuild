@@ -1,9 +1,11 @@
 "use client"
 import { approveAccess } from '@/app/actions/approve-access/approveAccess';
 import { deleteRequest } from '@/app/actions/deleteRequest/deleteRequest';
+import { setAccess } from '@/app/store/features/course-access-given';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import toast from 'react-hot-toast';
+import {useDispatch} from 'react-redux'
 
 interface ApproveCourseProps {
     courseId : string | null
@@ -12,15 +14,19 @@ interface ApproveCourseProps {
 }
 const ApproveCourse = ({courseId , userId , reqId} : ApproveCourseProps) => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const handleApprove = async() =>{
        try {
         
-        const approve = await approveAccess(courseId,userId);
-        const deleterequest = await deleteRequest(reqId);
+        const isAccessGiven = await approveAccess(courseId,userId);
+        if(isAccessGiven && typeof courseId == 'string'){
+          dispatch(setAccess({courseId,isAccessGiven}))
+        }
+        
     
         toast.success('Approve Course Success')
         router.refresh();
-        console.log(approve)
+        console.log(isAccessGiven)
        } catch (error) {
         console.log(error)
         toast.error('Something went wrong')

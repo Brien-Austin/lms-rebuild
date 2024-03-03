@@ -19,23 +19,27 @@ interface RequestAccessProps {
 }
 const RequestAccess = ({userId,email,firstName,courseId}:RequestAccessProps) => {
   const dispatch = useDispatch();
-  const [loading,setIsLoading] = useState<boolean>(false)
 
-  const router = useRouter();
-  const courseAccess = useAppSelector((state)=>state.courseRequest)
-  useEffect(()=>{
-    const isRequested = async()=>{
-      if(typeof courseId === 'string' && typeof userId === 'string'){
-        const isProcessing = await notApproved(courseId,userId)
-        console.log(isProcessing)
-       if(typeof isProcessing === 'boolean'){
-        dispatch(setIsProcessing({courseId,isProcessing}))
-       }
 
-      }
-    }
+
+  useEffect(() => {
+    const isRequested = async () => {
+        if (typeof courseId === 'string' && typeof userId === 'string') {
+            try {
+                const isProcessing = await notApproved(courseId, userId);
+                console.log(isProcessing);
+
+                if (typeof isProcessing === 'boolean') {
+                    dispatch(setIsProcessing({ courseId, isProcessing }));
+                }
+            } catch (error) {
+                console.error('Error checking approval status:', error);
+            }
+        }
+    };
+
     isRequested();
-  },[dispatch,courseId,userId])
+}, [dispatch, courseId, userId]);
 
 
     

@@ -66,15 +66,17 @@ const NotOwned = ({title,imageUrl,isFree,category,description,userId,email,chapt
     isRequestedOrNot();
 
   },[courseId,userId,dispatch])
+  
  
 
 
   
   const processingAccess = useAppSelector((state)=>state.courseRequest.courseRequest[courseId])
-  console.log(processingAccess);
   if(typeof processingAccess === 'undefined'){
     dispatch(setDefaultProcessing({courseId}))
   }
+  console.log(processingAccess);
+ 
     const handleCourseView = () =>{
         if(chapters[0].youtubeUrl !== null){
           dispatch(setCurrentChapterUrl(chapters[0].youtubeUrl))

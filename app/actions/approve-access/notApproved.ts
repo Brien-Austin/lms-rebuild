@@ -2,29 +2,29 @@
 
 import { db } from "@/lib/db"
 
-export const notApproved = async(courseId: string , userId : string) =>{
+export const notApproved = async (courseId: string, userId: string) => {
     try {
         const notApproved = await db.requestAcess.findUnique({
-            where : {
+            where: {
                 userId,
-                
-                
-                courseAccess : {
+                courseAccess: {
                     courseId,
-                    isRequesting : true,
+                    isRequesting: true
                 }
             }
-        })
-        if(notApproved){
+        });
+
+        console.log('[notApproved Result]:', notApproved);
+
+        if (notApproved !== null) {
             return true;
         }
-        return false;
 
-        
-
-        
+        else {
+            return false;
+        }
     } catch (error) {
-        console.log('[APPROVED COURSES ERROR]', error)
-        
-    }
+        console.log('[APPROVED COURSES ERROR]', error);
+        throw error; 
+};
 }

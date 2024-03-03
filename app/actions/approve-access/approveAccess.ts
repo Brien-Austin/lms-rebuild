@@ -15,9 +15,11 @@ export const approveAccess = async (courseId: string | null, userId: string | nu
         courseAccess : {
           update : {
             isGivenAccess : true,
-            isRequesting : false,
+            isRequesting : true,
           }
         }
+      },include : {
+        courseAccess : true
       }
     })
     
@@ -31,7 +33,7 @@ export const approveAccess = async (courseId: string | null, userId: string | nu
     }
     })
 
-    return purchase;
+    return approve.courseAccess?.isGivenAccess;
   
   
 }
